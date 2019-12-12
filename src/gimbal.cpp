@@ -128,7 +128,7 @@ bool Gimbal::GimbalReset(std_srvs::TriggerRequest &req, std_srvs::TriggerRespons
 void Gimbal::OnUpdate()
 {
     // Calculate transformation between parent and model
-    tf::Quaternion qt;
+    //tf::Quaternion qt;
     tf::Vector3 vt;
 
     ignition::math::Vector3d childrelativepos;
@@ -145,13 +145,13 @@ void Gimbal::OnUpdate()
                      childrelativepos.Y(),
                      childrelativepos.Z());
 
-    qt = tf::Quaternion(childrelativerot.X(),
-                        childrelativerot.Y(),
-                        childrelativerot.Z(),
-                        childrelativerot.W());
+
+    tf::Quaternion qt = tf::createQuaternionFromRPY(-this->model->WorldPose().Rot().Roll() +  this->link->WorldPose().Rot().Roll(),
+                                   -this->model->WorldPose().Rot().Pitch() +  this->link->WorldPose().Rot().Pitch(),
+                                   -this->model->WorldPose().Rot().Yaw() +  this->link->WorldPose().Rot().Yaw());
 
 
-    //tf::Matrix3x3 test(qt); //get rotation matrix of the parent model
+    //tf::Matrix3x3 test(qt);
     //double test_roll, test_pitch, test_yaw;
     //test.getRPY(test_roll, test_pitch, test_yaw);
     //std::cout << "Roll = " << test_roll*180/M_PI << ", Pitch = " << test_pitch*180/M_PI << ", Yaw = " << test_yaw*180/M_PI << std::endl;

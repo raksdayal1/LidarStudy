@@ -11,7 +11,7 @@ def main():
 
     rate = rospy.Rate(100)
     vel_msg.linear.x = 10
-    vel_msg.angular.z = -0.5
+    vel_msg.angular.z = 1.5
 
     while True:
         vel_pub.publish(vel_msg)
