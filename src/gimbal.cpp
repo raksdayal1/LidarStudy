@@ -1,0 +1,132 @@
+#include "gimbal.h"
+
+using namespace std;
+using namespace gazebo;
+
+GZ_REGISTER_MODEL_PLUGIN(Gimbal)
+Gimbal::Gimbal()
+{
+}
+
+Gimbal::~Gimbal()
+{
+}
+
+void Gimbal::Init()
+{
+    this->_updateConnection = event::Events::ConnectWorldUpdateBegin(
+                boost::bind(&Gimbal::OnUpdate, this));
+}
+
+void Gimbal::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
+{
+    this->model = _model;
+    this->modelName = this->model->GetName();
+
+    if(_sdf->HasElement("link"))
+    {
+        sdf::ElementPtr elem = _sdf->GetElement("link");
+        this->linkName = elem->Get<std::string>();
+        this->link = this->model->GetLink(this->linkName);
+    } else {
+        ROS_ERROR("Gimbal plugin missing <link>. Plugin will not run");
+        return;
+    }
+
+    if(_sdf->HasElement("yawjoint"))
+    {
+        sdf::ElementPtr elem = _sdf->GetElement("yawjoint");
+        this->yawjoint = this->model->GetJoint(elem->Get<std::string>());
+    } else {
+        ROS_ERROR("Gimbal plugin missing <yawjoint>. Plugin will not run");
+        return;
+    }
+
+    if(!_sdf->HasElement("serviceName"))
+    {
+        this->GimbalServ = this->modelName + "/gimbal";
+        ROS_INFO_STREAM("Gimbal plugin missing <serviceName>, defaults to" << this->GimbalServ);
+    } else {
+        this ->GimbalServ = this->modelName + "/" + _sdf->Get<std::string>("serviceName");
+    }
+
+    this->nodeName = "/";
+    if(!ros::isInitialized()){
+        int argc = 0;
+        char** argv = NULL;
+        ros::init(argc, argv, this->nodeName);
+    }
+
+    this->node.reset(new ros::NodeHandle(this->nodeName));
+    this->GimbalTrigger = this->node->advertiseService("GimbalReset", &Gimbal::GimbalReset, this);  //.advertiseService("trigger_on",callback);
+
+    this->ResetTrigger = true;
+    this->odomlistener = boost::shared_ptr<tf::TransformListener>(new tf::TransformListener());
+
+    //yaw pid
+    this->yaw_pid.SetPGain(0.5);
+    this->yaw_pid.SetIGain(0.001);
+    this->yaw_pid.SetDGain(0.011);
+    this->yaw_pid.SetIMin(-100);
+    this->yaw_pid.SetIMax(100);
+    this->yaw_pid.SetCmdMin(-5);
+    this->yaw_pid.SetCmdMax(5);
+
+}
+
+bool Gimbal::GimbalReset(std_srvs::TriggerRequest &req, std_srvs::TriggerResponse &res)
+{
+
+    this->ResetTrigger = true;
+    res.success = true;
+    res.message = "Gimbal reset to current model orientation";
+    return true;
+}
+
+void Gimbal::OnUpdate()
+{
+    tf::StampedTransform transform;
+    tf::Quaternion qt;
+
+    try{
+        this->odomlistener->lookupTransform("odom", "base_frame",
+                                            ros::Time(0), transform);
+    }
+    catch (tf::TransformException &ex){
+        ROS_ERROR("%s", ex.what());
+        ros::Duration(1.0).sleep();
+
+    }
+
+    tf::Matrix3x3 m(transform.getRotation()); //get rotation matrix of the parent model
+    m.getRPY(roll_parent, pitch_parent, yaw_parent); //get roll,pitch,yaw from rot matrix
+
+    // Get rotation data of gimbal from gazebo
+    roll_gim = this->link->WorldPose().Rot().Roll();
+    pitch_gim = this->link->WorldPose().Rot().Pitch();
+    yaw_gim = this->link->WorldPose().Rot().Yaw();
+
+    if(this->ResetTrigger){
+
+        this->yaw_set = this->yaw_parent;// set the setpoint of gimbal to orientation of parent
+        this->yaw_pid.SetCmd(0);
+
+        this->ResetTrigger = false;
+    }
+
+    //std::cout << transform.getRotation().inverse() << std::endl;
+    //tf::Matrix3x3 s(transform.getRotation()), m(transform.getRotation().inverse());
+    //double roll, pitch, yaw;
+    //double rollinv, pitchinv, yawinv;
+    //s.getRPY(roll, pitch, yaw);
+    //m.getRPY(rollinv, pitchinv, yawinv);
+
+    //std::cout << roll <<","<<pitch <<","<<yaw*180/3.14159265 << std::endl;
+    //std::cout << rollinv <<","<< pitchinv <<","<<yawinv*180/3.14159265 << std::endl;
+    //std::cout << "-----------------" << std::endl;
+    //this->yawjoint->SetPosition(0, 0, true);
+
+    this->yaw_pid.Update((this->yaw_gim - this->yaw_set)*180/3.14159265, 0.001);
+    this->yawjoint->SetVelocity(0, this->yaw_pid.GetCmd());
+}
+
