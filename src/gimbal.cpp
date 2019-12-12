@@ -103,11 +103,12 @@ void Gimbal::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
 
     this->ResetTrigger = true;
     this->odomlistener = boost::shared_ptr<tf::TransformListener>(new tf::TransformListener());
+    this->childtransform =boost::shared_ptr<tf::TransformBroadcaster>(new tf::TransformBroadcaster());
 
     //yaw pid
     this->yaw_pid.SetPGain(0.5);
     this->yaw_pid.SetIGain(0.001);
-    this->yaw_pid.SetDGain(0.011);
+    this->yaw_pid.SetDGain(0.0011);
     this->yaw_pid.SetIMin(-100);
     this->yaw_pid.SetIMax(100);
     this->yaw_pid.SetCmdMin(-5);
@@ -126,10 +127,35 @@ bool Gimbal::GimbalReset(std_srvs::TriggerRequest &req, std_srvs::TriggerRespons
 
 void Gimbal::OnUpdate()
 {
+    // Calculate transformation between parent and model
+    tf::Quaternion qt;
+    tf::Vector3 vt;
+
+    ignition::math::Pose3d childrelativepose;
+    //std::cout << "Model Yaw = " <<this->model->WorldPose().Rot().Yaw()*180/3.141592645 << std::endl;
+    //std::cout << "Link Yaw = " <<this->link->WorldPose().Rot().Yaw()*180/3.141592645 << std::endl;
+    //std::cout << "--------------------------------" << std::endl;
+    childrelativepose = -this->model->WorldPose() + this->link->WorldPose();
+    //std::cout << (this->model->WorldPose().Rot().Yaw() - this->link->WorldPose().Rot().Yaw())*180/3.141592645 << std::endl;
+
+    vt = tf::Vector3(childrelativepose.Pos().X(),
+                     childrelativepose.Pos().Y(),
+                     childrelativepose.Pos().Z());
+
+    qt = tf::Quaternion(childrelativepose.Rot().X(),
+                        childrelativepose.Rot().Y(),
+                        childrelativepose.Rot().Z(),
+                        childrelativepose.Rot().W());
+
+    tf::Transform lidar_to_parent(qt, vt);
+    this->childtransform->sendTransform(tf::StampedTransform(lidar_to_parent,
+                                                             ros::Time::now(),
+                                                             this->parentframename,
+                                                             this->modelframename));
+
 
     // Get the transform between world frame and the parent to which lidar is attached
     tf::StampedTransform transform;
-    tf::Quaternion qt;
 
     try{
         this->odomlistener->lookupTransform(this->worldframename, this->parentframename,
@@ -152,11 +178,21 @@ void Gimbal::OnUpdate()
     if(this->ResetTrigger){
 
         this->yaw_set = this->yaw_parent;// set the setpoint of gimbal to orientation of parent
+
         this->yaw_pid.SetCmd(0);
 
         this->ResetTrigger = false;
     }
 
+    while((this->yaw_set - yaw_gim) < -3.14159265)
+    {
+        this->yaw_set += 2*3.14159265;
+    }
+
+    while((this->yaw_set - yaw_gim) > 3.14159265)
+    {
+        this->yaw_set -= 2*3.14159265;
+    }
     //std::cout << transform.getRotation().inverse() << std::endl;
     //tf::Matrix3x3 s(transform.getRotation()), m(transform.getRotation().inverse());
     //double roll, pitch, yaw;
@@ -169,7 +205,8 @@ void Gimbal::OnUpdate()
     //std::cout << "-----------------" << std::endl;
     //this->yawjoint->SetPosition(0, 0, true);
 
-    this->yaw_pid.Update((this->yaw_gim - this->yaw_set)*180/3.14159265, 0.001);
+
+    this->yaw_pid.Update((this->yaw_set - this->yaw_gim)*180/3.14159265, 0.001);
     this->yawjoint->SetVelocity(0, this->yaw_pid.GetCmd());
 }
 
