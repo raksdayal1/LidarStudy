@@ -29,16 +29,13 @@ void RosDiffDriveControl::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
         sdf::ElementPtr elem_left = _sdf->GetElement("LeftWheelJoint");
         this->leftwheel = this->model->GetJoint(elem_left->Get<std::string>());
 
-        //ROS_INFO("Right joint name is %s", elem_right->Get<std::string>());
-        //ROS_INFO("Left joint name is %s", elem_left->Get<std::string>());
-        //std::cout << "Right joint name is " << elem_right->Get<std::string>() << std::endl;
-        //std::cout << "Left joint name is " << elem_left->Get<std::string>() << std::endl;
+        ROS_INFO_STREAM("Right joint name is " << elem_right->Get<std::string>());
+        ROS_INFO_STREAM("Left joint name is " << elem_left->Get<std::string>());
 
     }
     else
     {
-        //ROS_ERROR("Unable to find Wheel Joints sdf information");
-        //std::cout << "Unable to find Wheel Joints sdf information";
+        ROS_ERROR("Unable to find Wheel Joints sdf information");
         return;
     }
 
@@ -47,13 +44,13 @@ void RosDiffDriveControl::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
         sdf::ElementPtr elem = _sdf->GetElement("WheelSeparation");
         this->wheel_separation = elem->Get<double>();
 
-        //ROS_INFO("Wheel distance = " );//+ std::to_string(this->wheel_separation)   );
+        ROS_INFO_STREAM("Wheel distance = " << this->wheel_separation);//+ std::to_string(this->wheel_separation)   );
         //std::cout << "Wheel distance = " << this->wheel_separation << std::endl;
     }
     else
     {
-        //ROS_ERROR("WheelSeparation element not defined");
-        //std::cout << "WheelSeparation element not defined" << std::endl;
+        ROS_ERROR("WheelSeparation element not defined");
+        //std::cout << "<WheelSeparation> element not defined" << std::endl;
         return;
     }
 
@@ -62,16 +59,41 @@ void RosDiffDriveControl::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
         sdf::ElementPtr elem = _sdf->GetElement("WheelRadius");
         this->wheel_radius = elem->Get<double>();
 
-        //ROS_INFO("Wheel radius = " << this->wheel_radius);
-        //std::cout << "Wheel radius = " << this->wheel_radius << std::endl;
+        ROS_INFO_STREAM("Wheel radius = " << this->wheel_radius);
+    }
+    else
+    {
+        ROS_ERROR("<WheelRadius> element not defined");
+        return;
+    }
+
+    if(_sdf->HasElement("WorldFrame"))
+    {
+        sdf::ElementPtr elem = _sdf->GetElement("WorldFrame");
+        this->worldframename = elem->Get<std::string>();
+
+        ROS_INFO_STREAM("DiffDrive plugin <WorldFrame> set as " << this->worldframename);
+    }
+    else
+    {
+        ROS_ERROR("DiffDrive plugin <WorldFrame> element not defined");
+        return;
+    }
+
+    if(_sdf->HasElement("ModelFrame"))
+    {
+        sdf::ElementPtr elem = _sdf->GetElement("ModelFrame");
+        this->modelframename = elem->Get<std::string>();
+
+        ROS_INFO_STREAM("DiffDrive plugin <ModelFrame> set as " << this->modelframename);
 
     }
     else
     {
-        //ROS_ERROR("")
-        //std::cout << "WheelRadius element not defined" << std::endl;
+        ROS_ERROR("DiffDrive plugin <ModelFrame> element not defined");
         return;
     }
+
 
     if(!ros::isInitialized()){
         int argc = 0;
@@ -79,6 +101,7 @@ void RosDiffDriveControl::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
         ros::init(argc, argv, this->nodeName);
     }
 
+    ROS_INFO("Differential drive plugin ready");
     this->odomtransform = boost::shared_ptr<tf::TransformBroadcaster>(new tf::TransformBroadcaster());
 
     this->node.reset(new ros::NodeHandle(this->nodeName));
@@ -125,17 +148,12 @@ void RosDiffDriveControl::OnUpdate()
 
     tf::Transform base_to_world(qt,vt);
 
-    std::string frame, child_frame;
-    frame = "odom";
-    child_frame = "base_frame";
     ros::Time current_time = ros::Time::now();
-
-    //std::cout << "sending transform" << std::endl;
 
     odomtransform->sendTransform( tf::StampedTransform( base_to_world,
                                                       current_time,
-                                                      frame,
-                                                      child_frame) );
+                                                      this->worldframename,
+                                                      this->modelframename) );
 
 
     if(this->NEWDATA){
