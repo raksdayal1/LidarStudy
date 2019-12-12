@@ -44,11 +44,52 @@ void Gimbal::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
 
     if(!_sdf->HasElement("serviceName"))
     {
-        this->GimbalServ = this->modelName + "/gimbal";
+        this->GimbalServ = this->modelName + "/gimbalreset";
         ROS_INFO_STREAM("Gimbal plugin missing <serviceName>, defaults to" << this->GimbalServ);
     } else {
         this ->GimbalServ = this->modelName + "/" + _sdf->Get<std::string>("serviceName");
     }
+
+    if(_sdf->HasElement("WorldFrame"))
+    {
+        sdf::ElementPtr elem = _sdf->GetElement("WorldFrame");
+        this->worldframename = elem->Get<std::string>();
+
+        ROS_INFO_STREAM("Gimbal plugin <WorldFrame> set as " << this->worldframename);
+    }
+    else
+    {
+        ROS_ERROR("Gimbal plugin <WorldFrame> element not defined");
+        return;
+    }
+
+    if(_sdf->HasElement("ParentFrame"))
+    {
+        sdf::ElementPtr elem = _sdf->GetElement("ParentFrame");
+        this->parentframename = elem->Get<std::string>();
+
+        ROS_INFO_STREAM("Gimbal plugin <ParentFrame> set as " << this->parentframename);
+    }
+    else
+    {
+        ROS_ERROR("Gimbal plugin <ParentFrame> element not defined");
+        return;
+    }
+
+    if(_sdf->HasElement("ModelFrame"))
+    {
+        sdf::ElementPtr elem = _sdf->GetElement("ModelFrame");
+        this->modelframename = elem->Get<std::string>();
+
+        ROS_INFO_STREAM("Gimbal plugin <ModelFrame> set as " << this->modelframename);
+
+    }
+    else
+    {
+        ROS_ERROR("Gimbal plugin <ModelFrame> element not defined");
+        return;
+    }
+
 
     this->nodeName = "/";
     if(!ros::isInitialized()){
@@ -58,7 +99,7 @@ void Gimbal::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
     }
 
     this->node.reset(new ros::NodeHandle(this->nodeName));
-    this->GimbalTrigger = this->node->advertiseService("GimbalReset", &Gimbal::GimbalReset, this);  //.advertiseService("trigger_on",callback);
+    this->GimbalTrigger = this->node->advertiseService(this->GimbalServ, &Gimbal::GimbalReset, this);  //.advertiseService("trigger_on",callback);
 
     this->ResetTrigger = true;
     this->odomlistener = boost::shared_ptr<tf::TransformListener>(new tf::TransformListener());
@@ -85,11 +126,13 @@ bool Gimbal::GimbalReset(std_srvs::TriggerRequest &req, std_srvs::TriggerRespons
 
 void Gimbal::OnUpdate()
 {
+
+    // Get the transform between world frame and the parent to which lidar is attached
     tf::StampedTransform transform;
     tf::Quaternion qt;
 
     try{
-        this->odomlistener->lookupTransform("odom", "base_frame",
+        this->odomlistener->lookupTransform(this->worldframename, this->parentframename,
                                             ros::Time(0), transform);
     }
     catch (tf::TransformException &ex){
