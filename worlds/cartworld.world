@@ -83,10 +83,10 @@
       <heading_deg>0</heading_deg>
     </spherical_coordinates>
     <state world_name='default'>
-      <sim_time>1800 795000000</sim_time>
-      <real_time>256 219330418</real_time>
-      <wall_time>1576100084 632377007</wall_time>
-      <iterations>62922</iterations>
+      <sim_time>1874 258000000</sim_time>
+      <real_time>154 245329959</real_time>
+      <wall_time>1576117913 310347908</wall_time>
+      <iterations>73463</iterations>
       <model name='ground_plane'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <scale>1 1 1</scale>
@@ -98,52 +98,52 @@
         </link>
       </model>
       <model name='pioneer2dxLidar'>
-        <pose frame=''>-0.013813 7.18483 -6e-06 3.7e-05 -7e-06 2.7455</pose>
+        <pose frame=''>-0.316297 12.5207 0 2.6e-05 7e-06 2.8796</pose>
         <scale>1 1 1</scale>
         <link name='chassis'>
-          <pose frame=''>-0.01381 7.18484 0.159994 3.7e-05 -7e-06 2.7455</pose>
-          <velocity>-1.00925 0.442558 -0.007035 0.00282 0.006235 0.183557</velocity>
-          <acceleration>-0.007407 -0.018706 -9.80049 -0.248953 0.113011 0.091935</acceleration>
-          <wrench>-0.041999 -0.106061 -55.5688 0 -0 0</wrench>
+          <pose frame=''>-0.316297 12.5208 0.16 2.6e-05 7e-06 2.8796</pose>
+          <velocity>-0.008366 0.002692 0.002816 -0.001173 0.005517 -0.00027</velocity>
+          <acceleration>-0.570973 -0.146197 5.58043 -1.88365 0.915964 1.51085</acceleration>
+          <wrench>-3.23742 -0.828938 31.641 0 -0 0</wrench>
         </link>
         <link name='left_wheel'>
-          <pose frame=''>-0.171652 7.06658 0.109995 1.57133 -1.4647 -0.39654</pose>
-          <velocity>-0.987793 0.413778 -0.006348 -0.597341 -0.480437 -2.95754</velocity>
-          <acceleration>0.081899 0.096825 -9.72776 1.15755 -1.34326 -2.94391</acceleration>
-          <wrench>0.122849 0.145237 -14.5916 0 -0 0</wrench>
+          <pose frame=''>-0.456916 12.3825 0.11 1.57081 0.557146 -0.262123</pose>
+          <velocity>-0.008633 0.002814 0.003792 -0.025586 -0.078472 -0.000203</velocity>
+          <acceleration>-1.7501 0.090881 9.13855 -2.20456 1.11939 -2.68183</acceleration>
+          <wrench>-2.62515 0.136321 13.7078 0 -0 0</wrench>
         </link>
         <link name='link_0'>
-          <pose frame=''>-0.013774 7.18487 0.269465 -7e-06 -4.2e-05 -0.682993</pose>
-          <velocity>-1.00857 0.44225 -0.007036 0.002904 0.006234 0.008515</velocity>
-          <acceleration>0.001182 0.002514 -9.80045 -0.169865 0.104676 -1.13087</acceleration>
-          <wrench>0.001182 0.002514 -9.80045 0 -0 0</wrench>
+          <pose frame=''>-0.316267 12.5208 0.269471 5.2e-05 1.2e-05 -2.20601</pose>
+          <velocity>-0.007764 0.002809 0.002817 -0.000761 0.005466 1.28293</velocity>
+          <acceleration>1.69765 0.315164 5.58084 -1.04307 1.20285 1.53039</acceleration>
+          <wrench>1.69765 0.315164 5.58084 0 -0 0</wrench>
         </link>
         <link name='right_wheel'>
-          <pose frame=''>-0.040481 7.38026 0.109996 1.57091 -0.700828 -0.396181</pose>
-          <velocity>-1.04546 0.437885 -0.006333 -0.816192 0.043077 -2.95757</velocity>
-          <acceleration>-0.007592 0.087479 -9.87587 1.42612 -1.23065 3.07982</acceleration>
-          <wrench>-0.011389 0.131219 -14.8138 0 -0 0</wrench>
+          <pose frame=''>-0.368857 12.7109 0.110002 1.57094 -0.97995 -0.262086</pose>
+          <velocity>-0.008632 0.002631 0.002929 -0.02384 -0.078534 -0.000296</velocity>
+          <acceleration>-1.37766 -0.514566 5.88178 -1.05184 0.894235 0.626006</acceleration>
+          <wrench>-2.0665 -0.771848 8.82267 0 -0 0</wrench>
         </link>
         <model name='VLP16'>
-          <pose frame=''>4.08371 -0.433683 0.276706 0 -0 0</pose>
+          <pose frame=''>0.839084 40.2975 0.275422 4.3e-05 4.7e-05 2.69738</pose>
           <scale>1 1 1</scale>
           <link name='LidarBase'>
-            <pose frame=''>-0.015912 7.1821 0.2767 9e-06 -8.7e-05 -0.62592</pose>
-            <velocity>-1.00851 0.442196 -0.007029 0.002924 0.006244 0.008515</velocity>
-            <acceleration>-0.013697 -0.034598 -9.79882 -0.076797 0.024616 0.282469</acceleration>
-            <wrench>-0.013697 -0.034598 -9.79882 0 -0 0</wrench>
+            <pose frame=''>-0.319129 12.5228 0.276706 7.1e-05 -3.6e-05 -2.14894</pose>
+            <velocity>0.002254 0.017121 0.002838 -0.000728 0.005495 1.28293</velocity>
+            <acceleration>1.91114 0.27445 5.63068 -0.872862 1.31316 -2.71207</acceleration>
+            <wrench>1.91114 0.27445 5.63068 0 -0 0</wrench>
           </link>
           <link name='LidarScan'>
-            <pose frame=''>-0.015912 7.1821 0.2767 9e-06 -8.7e-05 -0.62592</pose>
-            <velocity>-1.00852 0.442184 -0.007028 0.002939 0.006253 0.008515</velocity>
-            <acceleration>-0.024412 -0.059641 -9.79708 -0.054947 0.014036 0.282354</acceleration>
-            <wrench>-0.024412 -0.059641 -9.79708 0 -0 0</wrench>
+            <pose frame=''>-0.319129 12.5228 0.276706 7.1e-05 -3.5e-05 -2.14894</pose>
+            <velocity>0.002251 0.017098 0.002843 -0.000703 0.005516 1.28293</velocity>
+            <acceleration>1.90589 0.256447 5.6299 -0.834984 1.32958 -2.71237</acceleration>
+            <wrench>1.90589 0.256447 5.6299 0 -0 0</wrench>
           </link>
           <link name='LidarTop'>
-            <pose frame=''>-0.015912 7.1821 0.2767 9e-06 -8.7e-05 -0.62592</pose>
-            <velocity>-1.00852 0.442174 -0.007027 0.002951 0.00626 0.008515</velocity>
-            <acceleration>-0.032534 -0.07867 -9.79542 -0.037812 0.005831 0.282267</acceleration>
-            <wrench>-0.032534 -0.07867 -9.79542 0 -0 0</wrench>
+            <pose frame=''>-0.319129 12.5228 0.276706 7.1e-05 -3.5e-05 -2.14894</pose>
+            <velocity>0.002248 0.01708 0.002846 -0.000681 0.005533 1.28293</velocity>
+            <acceleration>1.9019 0.242728 5.62914 -0.805342 1.34269 -2.7126</acceleration>
+            <wrench>1.9019 0.242728 5.62914 0 -0 0</wrench>
           </link>
         </model>
       </model>
@@ -163,7 +163,7 @@
     </state>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose frame=''>-17.3712 -10.5956 8.8831 -0 0.32 0.712</pose>
+        <pose frame=''>-9.15885 6.0496 5.5529 0 0.308906 0.674009</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
@@ -1109,12 +1109,17 @@
       <static>0</static>
       <allow_auto_disable>1</allow_auto_disable>
       <plugin name='rosdiff_drive' filename='libdiff_drive_control.so'>
+        <WorldFrame>odom</WorldFrame>
+        <ModelFrame>chassis</ModelFrame>
         <RightWheelJoint>right_wheel_hinge</RightWheelJoint>
         <LeftWheelJoint>left_wheel_hinge</LeftWheelJoint>
         <WheelSeparation>0.06</WheelSeparation>
         <WheelRadius>0.11</WheelRadius>
       </plugin>
       <plugin name='gimbal' filename='libgimbal.so'>
+        <WorldFrame>odom</WorldFrame>
+        <ParentFrame>chassis</ParentFrame>
+        <ModelFrame>lidar</ModelFrame>
         <link>link_0</link>
         <topicName>gimbal</topicName>
         <yawjoint>chassis_JOINT_2</yawjoint>
