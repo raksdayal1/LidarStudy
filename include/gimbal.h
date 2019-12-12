@@ -55,7 +55,9 @@ private:
     double roll_gim, pitch_gim, yaw_gim;
     double roll_set, pitch_set, yaw_set;
 
+    std::string parentframename, modelframename, worldframename;
     boost::shared_ptr<tf::TransformListener> odomlistener;
+    boost::shared_ptr<tf::TransformBroadcaster> childtransform;
 };
 
 #endif // GIMBAL_H

@@ -132,11 +132,8 @@ void Gimbal::OnUpdate()
     tf::Vector3 vt;
 
     ignition::math::Vector3d childrelativepos;
-    ignition::math::Quaterniond childrelativerot;
 
     childrelativepos = -this->model->WorldPose().Pos() + this->link->WorldPose().Pos();
-    childrelativerot = -this->model->WorldPose().Rot() + this->link->WorldPose().Rot();
-
     //std::cout << childrelativepos.X() <<std::endl;
     //std::cout << childrelativepos.Y() <<std::endl;
     //std::cout << childrelativepos.Z() <<std::endl;
@@ -203,6 +200,7 @@ void Gimbal::OnUpdate()
     {
         this->yaw_set -= 2*3.14159265;
     }
+
     //std::cout << transform.getRotation().inverse() << std::endl;
     //tf::Matrix3x3 s(transform.getRotation()), m(transform.getRotation().inverse());
     //double roll, pitch, yaw;

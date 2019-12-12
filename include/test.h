@@ -46,6 +46,7 @@ namespace gazebo
         ros::Subscriber ControlSub;
 
         std::string modelName, nodeName, controlTopicName;
+        std::string worldframename, modelframename;
         float wheel_separation, wheel_radius;
         float LinearSpeed, RotateSpeed;
 
