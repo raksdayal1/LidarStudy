@@ -131,21 +131,31 @@ void Gimbal::OnUpdate()
     tf::Quaternion qt;
     tf::Vector3 vt;
 
-    ignition::math::Pose3d childrelativepose;
-    //std::cout << "Model Yaw = " <<this->model->WorldPose().Rot().Yaw()*180/3.141592645 << std::endl;
-    //std::cout << "Link Yaw = " <<this->link->WorldPose().Rot().Yaw()*180/3.141592645 << std::endl;
-    //std::cout << "--------------------------------" << std::endl;
-    childrelativepose = -this->model->WorldPose() + this->link->WorldPose();
-    //std::cout << (this->model->WorldPose().Rot().Yaw() - this->link->WorldPose().Rot().Yaw())*180/3.141592645 << std::endl;
+    ignition::math::Vector3d childrelativepos;
+    ignition::math::Quaterniond childrelativerot;
 
-    vt = tf::Vector3(childrelativepose.Pos().X(),
-                     childrelativepose.Pos().Y(),
-                     childrelativepose.Pos().Z());
+    childrelativepos = -this->model->WorldPose().Pos() + this->link->WorldPose().Pos();
+    childrelativerot = -this->model->WorldPose().Rot() + this->link->WorldPose().Rot();
 
-    qt = tf::Quaternion(childrelativepose.Rot().X(),
-                        childrelativepose.Rot().Y(),
-                        childrelativepose.Rot().Z(),
-                        childrelativepose.Rot().W());
+    //std::cout << childrelativepos.X() <<std::endl;
+    //std::cout << childrelativepos.Y() <<std::endl;
+    //std::cout << childrelativepos.Z() <<std::endl;
+
+    vt = tf::Vector3(childrelativepos.X(),
+                     childrelativepos.Y(),
+                     childrelativepos.Z());
+
+    qt = tf::Quaternion(childrelativerot.X(),
+                        childrelativerot.Y(),
+                        childrelativerot.Z(),
+                        childrelativerot.W());
+
+
+    //tf::Matrix3x3 test(qt); //get rotation matrix of the parent model
+    //double test_roll, test_pitch, test_yaw;
+    //test.getRPY(test_roll, test_pitch, test_yaw);
+    //std::cout << "Roll = " << test_roll*180/M_PI << ", Pitch = " << test_pitch*180/M_PI << ", Yaw = " << test_yaw*180/M_PI << std::endl;
+    //std::cout << "==========================================" << std::endl;
 
     tf::Transform lidar_to_parent(qt, vt);
     this->childtransform->sendTransform(tf::StampedTransform(lidar_to_parent,
