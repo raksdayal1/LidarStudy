@@ -83,10 +83,10 @@
       <heading_deg>0</heading_deg>
     </spherical_coordinates>
     <state world_name='default'>
-      <sim_time>1874 258000000</sim_time>
-      <real_time>154 245329959</real_time>
-      <wall_time>1576117913 310347908</wall_time>
-      <iterations>73463</iterations>
+      <sim_time>62 656000000</sim_time>
+      <real_time>235 38052974</real_time>
+      <wall_time>1576442494 94158682</wall_time>
+      <iterations>62656</iterations>
       <model name='ground_plane'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <scale>1 1 1</scale>
@@ -98,60 +98,70 @@
         </link>
       </model>
       <model name='pioneer2dxLidar'>
-        <pose frame=''>-0.316297 12.5207 0 2.6e-05 7e-06 2.8796</pose>
+        <pose frame=''>11.2728 -0.027839 1e-06 3.9e-05 -7e-06 0.014966</pose>
         <scale>1 1 1</scale>
         <link name='chassis'>
-          <pose frame=''>-0.316297 12.5208 0.16 2.6e-05 7e-06 2.8796</pose>
-          <velocity>-0.008366 0.002692 0.002816 -0.001173 0.005517 -0.00027</velocity>
-          <acceleration>-0.570973 -0.146197 5.58043 -1.88365 0.915964 1.51085</acceleration>
-          <wrench>-3.23742 -0.828938 31.641 0 -0 0</wrench>
+          <pose frame=''>11.2728 -0.027845 0.160001 3.9e-05 -7e-06 0.014966</pose>
+          <velocity>0.11519 0.001454 0.001556 -2.8e-05 -0.007817 0.000841</velocity>
+          <acceleration>0.306412 0.030837 3.11966 3.07077 -0.045727 -2.91819</acceleration>
+          <wrench>1.73736 0.174849 17.6885 0 -0 0</wrench>
         </link>
         <link name='left_wheel'>
-          <pose frame=''>-0.456916 12.3825 0.11 1.57081 0.557146 -0.262123</pose>
-          <velocity>-0.008633 0.002814 0.003792 -0.025586 -0.078472 -0.000203</velocity>
-          <acceleration>-1.7501 0.090881 9.13855 -2.20456 1.11939 -2.68183</acceleration>
-          <wrench>-2.62515 0.136321 13.7078 0 -0 0</wrench>
+          <pose frame=''>11.3703 0.143634 0.110002 1.57103 -1.22954 -3.12678</pose>
+          <velocity>0.115434 0.00158 0.00231 -0.014416 1.04918 0.000877</velocity>
+          <acceleration>1.05847 0.152264 4.62641 -0.396819 -0.009371 -2.8072</acceleration>
+          <wrench>1.58771 0.228396 6.93962 0 -0 0</wrench>
         </link>
         <link name='link_0'>
-          <pose frame=''>-0.316267 12.5208 0.269471 5.2e-05 1.2e-05 -2.20601</pose>
-          <velocity>-0.007764 0.002809 0.002817 -0.000761 0.005466 1.28293</velocity>
-          <acceleration>1.69765 0.315164 5.58084 -1.04307 1.20285 1.53039</acceleration>
-          <wrench>1.69765 0.315164 5.58084 0 -0 0</wrench>
+          <pose frame=''>11.2728 -0.027886 0.269472 2e-05 3.9e-05 -0.00049</pose>
+          <velocity>0.114335 0.001453 0.001555 3.2e-05 -0.007724 -3.3e-05</velocity>
+          <acceleration>-1.40786 0.031027 3.11912 -3.11841 -0.139318 -3.03487</acceleration>
+          <wrench>-1.40786 0.031027 3.11912 0 -0 0</wrench>
         </link>
         <link name='right_wheel'>
-          <pose frame=''>-0.368857 12.7109 0.110002 1.57094 -0.97995 -0.262086</pose>
-          <velocity>-0.008632 0.002631 0.002929 -0.02384 -0.078534 -0.000296</velocity>
-          <acceleration>-1.37766 -0.514566 5.88178 -1.05184 0.894235 0.626006</acceleration>
-          <wrench>-2.0665 -0.771848 8.82267 0 -0 0</wrench>
+          <pose frame=''>11.3754 -0.196328 0.110002 1.57107 -1.30505 -3.12682</pose>
+          <velocity>0.115711 0.001576 0.002378 -0.014371 1.05169 0.000923</velocity>
+          <acceleration>1.10007 0.134813 4.76388 -0.222338 -0.532799 -2.63811</acceleration>
+          <wrench>1.65011 0.202219 7.14582 0 -0 0</wrench>
         </link>
         <model name='VLP16'>
-          <pose frame=''>0.839084 40.2975 0.275422 4.3e-05 4.7e-05 2.69738</pose>
+          <pose frame=''>4.08371 -0.433683 0.276706 0 -0 0</pose>
           <scale>1 1 1</scale>
           <link name='LidarBase'>
-            <pose frame=''>-0.319129 12.5228 0.276706 7.1e-05 -3.6e-05 -2.14894</pose>
-            <velocity>0.002254 0.017121 0.002838 -0.000728 0.005495 1.28293</velocity>
-            <acceleration>1.91114 0.27445 5.63068 -0.872862 1.31316 -2.71207</acceleration>
-            <wrench>1.91114 0.27445 5.63068 0 -0 0</wrench>
+            <pose frame=''>11.2729 -0.031378 0.276707 4.1e-05 -7e-06 0.056583</pose>
+            <velocity>0.114281 0.001443 0.001553 4.9e-05 -0.007675 -3.3e-05</velocity>
+            <acceleration>-1.51744 0.004826 3.1163 -3.02548 -0.242467 -3.13686</acceleration>
+            <wrench>-1.51744 0.004826 3.1163 0 -0 0</wrench>
           </link>
           <link name='LidarScan'>
-            <pose frame=''>-0.319129 12.5228 0.276706 7.1e-05 -3.5e-05 -2.14894</pose>
-            <velocity>0.002251 0.017098 0.002843 -0.000703 0.005516 1.28293</velocity>
-            <acceleration>1.90589 0.256447 5.6299 -0.834984 1.32958 -2.71237</acceleration>
-            <wrench>1.90589 0.256447 5.6299 0 -0 0</wrench>
+            <pose frame=''>11.2729 -0.031378 0.276707 4.1e-05 -7e-06 0.056583</pose>
+            <velocity>0.114282 0.001435 0.001551 6.1e-05 -0.007637 -3.3e-05</velocity>
+            <acceleration>-1.51578 -0.011996 3.11305 -3.00237 -0.296163 -3.13688</acceleration>
+            <wrench>-1.51578 -0.011996 3.11305 0 -0 0</wrench>
           </link>
           <link name='LidarTop'>
-            <pose frame=''>-0.319129 12.5228 0.276706 7.1e-05 -3.5e-05 -2.14894</pose>
-            <velocity>0.002248 0.01708 0.002846 -0.000681 0.005533 1.28293</velocity>
-            <acceleration>1.9019 0.242728 5.62914 -0.805342 1.34269 -2.7126</acceleration>
-            <wrench>1.9019 0.242728 5.62914 0 -0 0</wrench>
+            <pose frame=''>11.2729 -0.031378 0.276707 4.1e-05 -7e-06 0.056583</pose>
+            <velocity>0.114283 0.001429 0.00155 7e-05 -0.007605 -3.3e-05</velocity>
+            <acceleration>-1.51439 -0.024718 3.11032 -2.9843 -0.34102 -3.1369</acceleration>
+            <wrench>-1.51439 -0.024718 3.11032 0 -0 0</wrench>
           </link>
         </model>
       </model>
-      <model name='school'>
-        <pose frame=''>3.92447 29.4652 0 0 -0 0</pose>
+      <model name='police_station'>
+        <pose frame=''>18.705 13.3962 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>3.92447 29.4652 0 0 -0 0</pose>
+          <pose frame=''>18.705 13.3962 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='thrift_shop'>
+        <pose frame=''>0.937197 11.9774 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>0.937197 11.9774 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -163,7 +173,7 @@
     </state>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose frame=''>-9.15885 6.0496 5.5529 0 0.308906 0.674009</pose>
+        <pose frame=''>-29.5437 -84.9883 36.3825 0 0.600905 1.47882</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
@@ -1126,14 +1136,77 @@
       </plugin>
       <pose frame=''>4.08385 -0.430156 0 0 -0 0</pose>
     </model>
-    <model name='school'>
+    <audio>
+      <device>default</device>
+    </audio>
+    <model name='thrift_shop'>
       <static>1</static>
       <link name='link'>
         <collision name='collision'>
+          <pose frame=''>0 0 5.69469 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>7.21297 5.43165 11.3894</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <pose frame=''>0 -0.912491 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>model://school/meshes/school.dae</uri>
+              <uri>model://thrift_shop/meshes/thrift_shop.dae</uri>
             </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>0.937197 11.9774 0 0 -0 0</pose>
+    </model>
+    <model name='police_station'>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision_main'>
+          <pose frame=''>0 0 4.28998 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>13.037 13.037 8.57995</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <collision name='collision_landing'>
+          <pose frame=''>0 0 0.464086 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>13.037 16.2446 0.928173</size>
+            </box>
           </geometry>
           <max_contacts>10</max_contacts>
           <surface>
@@ -1152,7 +1225,7 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>model://school/meshes/school.dae</uri>
+              <uri>model://police_station/meshes/police_station.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -1160,7 +1233,7 @@
         <enable_wind>0</enable_wind>
         <kinematic>0</kinematic>
       </link>
-      <pose frame=''>3.92447 29.4652 0 0 -0 0</pose>
+      <pose frame=''>18.705 13.3962 0 0 -0 0</pose>
     </model>
   </world>
 </sdf>

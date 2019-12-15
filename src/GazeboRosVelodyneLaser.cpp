@@ -342,10 +342,10 @@ void GazeboRosVelodyneLaser::OnScan(ConstLaserScanStampedPtr& _msg)
 #else
         *((float*)(ptr + 8)) = -r * sin(pAngle);
 #endif
-        *((float*)(ptr + 16)) = intensity;
+        *((float*)(ptr + 16)) = intensity;// intensity
 #if GAZEBO_MAJOR_VERSION > 2
-        //*((uint16_t*)(ptr + 20)) = j; // ring
-        *((uint16_t*)(ptr + 20)) = 0; // ring: RAKSHITEDITED: Set ring to zero
+        *((uint16_t*)(ptr + 20)) = j; // ring
+
 #else
         *((uint16_t*)(ptr + 20)) = verticalRangeCount - 1 - j; // ring
 #endif

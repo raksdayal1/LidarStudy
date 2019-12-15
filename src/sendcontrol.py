@@ -6,6 +6,8 @@ import tf
 from tf.transformations import euler_from_quaternion
 from math import atan2, sqrt, pi
 
+# Around school
+'''
 Waypoints = [(23,10),
              (30,15),
              (30,40),
@@ -13,6 +15,16 @@ Waypoints = [(23,10),
              (-25,30),
              (-15,10),
              (0,10)]
+'''
+
+Waypoints = [(30,0),
+             (30,30),
+             (0,30),
+             (-10, 30),
+             (-10,0),
+             (0,0)]
+
+
 
 def main():
     # Initialize the ros node
@@ -58,9 +70,9 @@ def main():
 
         if abs(angle_to_goal - theta)*180/pi > 10:
             vel_msg.linear.x = 0.0
-            vel_msg.angular.z = 0.5
+            vel_msg.angular.z = 0.6
         else:
-            vel_msg.linear.x = 10
+            vel_msg.linear.x = 12
             vel_msg.angular.z = 0.0
 
         if (sqrt((goal.x-x)**2+(goal.y-y)**2) < 3):
