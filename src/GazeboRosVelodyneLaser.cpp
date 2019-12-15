@@ -272,7 +272,7 @@ void GazeboRosVelodyneLaser::OnScan(ConstLaserScanStampedPtr& _msg)
   // Populate message fields
   const uint32_t POINT_STEP = 32;
   sensor_msgs::PointCloud2 msg;
-  msg.header.frame_id = frame_name_;
+  msg.header.frame_id = "lidar";//frame_name_;
   msg.header.stamp = ros::Time(_msg->time().sec(), _msg->time().nsec());
   msg.fields.resize(5);
   msg.fields[0].name = "x";
@@ -344,7 +344,8 @@ void GazeboRosVelodyneLaser::OnScan(ConstLaserScanStampedPtr& _msg)
 #endif
         *((float*)(ptr + 16)) = intensity;
 #if GAZEBO_MAJOR_VERSION > 2
-        *((uint16_t*)(ptr + 20)) = j; // ring
+        //*((uint16_t*)(ptr + 20)) = j; // ring
+        *((uint16_t*)(ptr + 20)) = 0; // ring: RAKSHITEDITED: Set ring to zero
 #else
         *((uint16_t*)(ptr + 20)) = verticalRangeCount - 1 - j; // ring
 #endif
