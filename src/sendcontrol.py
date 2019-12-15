@@ -56,11 +56,11 @@ def main():
         angle_to_goal = atan2(inc_y, inc_x)
 
 
-        if abs(angle_to_goal - theta)*180/pi > 20:
+        if abs(angle_to_goal - theta)*180/pi > 10:
             vel_msg.linear.x = 0.0
-            vel_msg.angular.z = 3
+            vel_msg.angular.z = 0.5
         else:
-            vel_msg.linear.x = 30
+            vel_msg.linear.x = 10
             vel_msg.angular.z = 0.0
 
         if (sqrt((goal.x-x)**2+(goal.y-y)**2) < 3):
@@ -68,7 +68,7 @@ def main():
             Wp_Counter += 1
             print("Entering waypoint %d" % Wp_Counter)
             print("-----------------------------------")
-            if(Wp_Counter > len(Waypoints)):
+            if(Wp_Counter > len(Waypoints)-1):
                 Wp_Counter = 0
 
 

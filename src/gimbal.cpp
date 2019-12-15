@@ -45,7 +45,7 @@ void Gimbal::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
     if(!_sdf->HasElement("serviceName"))
     {
         this->GimbalServ = this->modelName + "/gimbalreset";
-        ROS_INFO_STREAM("Gimbal plugin missing <serviceName>, defaults to" << this->GimbalServ);
+        ROS_INFO_STREAM("Gimbal plugin missing <serviceName>, defaults to " << this->GimbalServ);
     } else {
         this ->GimbalServ = this->modelName + "/" + _sdf->Get<std::string>("serviceName");
     }

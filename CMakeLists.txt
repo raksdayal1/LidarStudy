@@ -24,6 +24,10 @@ find_package(gazebo REQUIRED)
 link_directories(${GAZEBO_LIBRARY_DIRS})
 include_directories(${Boost_INCLUDE_DIR} ${GAZEBO_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS})
 
+find_package(PCL 1.3 REQUIRED COMPONENTS common io)
+include_directories(${PCL_INCLUDE_DIRS})
+link_directories(${PCL_LIBRARY_DIRS})
+add_definitions(${PCL_DEFINITIONS})
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -141,6 +145,11 @@ set(Gimbal gimbal)
 add_library(${Gimbal} SHARED src/gimbal.cpp)
 target_link_libraries(${Gimbal} ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
 
+set(MappingNode mapper)
+add_executable(${MappingNode} src/startmapping.cpp src/createmapper.cpp)
+#add_executable(${MappingNode} src/createmap.cpp)
+target_link_libraries(${MappingNode} ${catkin_LIBRARIES} ${PCL_LIBRARIES})
+
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
@@ -164,6 +173,7 @@ target_link_libraries(${Gimbal} ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
+#   ${PCL_LIBRARIES}
 # )
 
 #############
